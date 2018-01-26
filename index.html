@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>simple crystal game</title>
+
+  <style type="text/css">
+
+/*  	.crystal-image {
+  		width: 150px;
+  		heigh: 150px;
+  	}*/
+  </style>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+<body>
+
+	<h1>Crystals Collector!</h1>
+	<div id="instructions">Instructions for game:</div>
+	<p>You will be given a random number at the start of the game</p>
+	<p>There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score.</p>
+	<p>You win the game by matching your total score to the random number. You lose the game if your total score goes above the random number.</p>
+	<p>The value of each crystal is hidden from you until you click on it.</p>
+	<p>Each time when the game starts, the game will change the values of each crystal.</p>
+
+	<div>
+
+	<h2>Wins: <span id="wins"></span></h1>
+	<h2>Losses: <span id="losses"></span></h1>
+	</div>
+
+	<div>
+
+	<h1>Number to Match: <span id="number-to-guess"></span></h1>
+	</div>
+	
+
+	<!-- <div class="container"> -->
+	<div class="crystals">
+	<!-- 	<div class="col-md-6" -->
+	<div class="row">
+		<div class="col-md-2">
+			<img class="crystal crystal-kinetic kineticScoreNum" src="assets/images/Kinetic_Crystal.jpg" alt="kinetic crystal" width="100" height="100">
+		</div>
+		<div class="col-md-2">
+			<img class="crystal crystal-turquoise turquoiseScoreNum" src="assets/images/turquoiseCrystal.jpg" alt="turquoise crystal" width="100" height="100">
+		</div>
+		<div class="col-md-2">
+			<img class="crystal crystal-rainbow rainbowScoreNum" src="assets/images/rainbowCrystal.png" alt="rainbow crystal" width="100" height="100">
+		</div>
+		<div class="col-md-2">
+			<img class="crystal crystal-pink pinkScoreNum" src="assets/images/pinkCrystal.png" alt="pink crystal" width="100" height="100">
+		</div>
+	</div>
+	</div>
+	
+	<h1>Your total score is: <span id="score"></span></h1>
+
+<!-- 		<img class="crystal-image" src="assets/images/blueCrystal.jpg" alt="Blue Crystal"> -->
+	</div>
+	
+
+<!-- JAVASCRIPT
+ -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+var targetNumber = Math.floor(Math.random() * (120-19)) + 19;
+// var arrayOfCrystals = [(Math.floor(Math.random() * 12) + 1), (Math.floor(Math.random() * 12) + 1), (Math.floor(Math.random() * 12) + 1), (Math.floor(Math.random() * 12) + 1)];
+// 	console.log(arrayOfCrystals[0]);
+// 	console.log(arrayOfCrystals[1]);
+// 	console.log(arrayOfCrystals[2]);
+// 	console.log(arrayOfCrystals[3]);
+
+var counter = 0;
+var crystalSelector = [1, 2, 3, 4];
+var wins=0;
+var losses=0;
+var crystalValue;
+var imageCrystal;
+var kineticSavedNum = 0;
+var turquoiseSavedNum = 0;
+var rainbowSavedNum = 0;
+var pinkSavedNum = 0;
+
+// var kineticValue = 0
+
+// var kineticCrystal = {
+// 	"value": [(Math.floor(Math.random() * 12) + 1)]
+// }
+// 	console.log(kineticCrystal.value);
+
+// var turquoiseCrystal = {
+// 	"value": [(Math.floor(Math.random() * 12) + 1)]
+// }
+// 	console.log(kineticCrystal.value);	
+
+// var rainbowCrystal = {
+// 	"value": [(Math.floor(Math.random() * 12) + 1)]
+// }
+// 	console.log(kineticCrystal.value);
+
+// var pinkCrystal = {
+// 	"value": [(Math.floor(Math.random() * 12) + 1)]
+// }
+// 	console.log(kineticCrystal.value);
+
+
+// var increment = numberOptions[Math.round(Math.random())];
+
+function playGame() {
+	targetNumber = Math.floor(Math.random() * (120-19)) + 19;
+	$("#number-to-guess").text(targetNumber);
+	counter = 0;
+	$("#score").text(counter);
+
+		
+// $("#number-to-guess").text(targetNumber);
+
+	kineticSavedNum = Math.floor(Math.random() * 12) + 1;
+	turquoiseSavedNum = Math.floor(Math.random() * 12) + 1;
+	rainbowSavedNum = Math.floor(Math.random() * 12) + 1;
+	pinkSavedNum = Math.floor(Math.random() * 12) + 1;
+
+};
+
+		$(".crystal-kinetic").click(function() {
+			// $(".kineticScoreNum").html(kineticSavedNum);
+				console.log(kineticSavedNum);
+				counter += kineticSavedNum;
+				$("#score").text(counter);
+				if (counter === targetNumber) {
+					alert("you win");
+					wins ++;
+					$("#wins").text(wins);
+					playGame();
+				} else if (counter > targetNumber) {
+					alert("you lose");
+					losses ++;
+					$("#losses").text(losses);
+					playGame();
+				}
+		});
+
+	
+
+		$(".crystal-turquoise").click(function() {
+			// $(".turquoiseScoreNum").html(turquoiseSavedNum);
+				console.log(turquoiseSavedNum);
+				counter += turquoiseSavedNum;
+				$("#score").text(counter);
+				if (counter === targetNumber) {
+					alert("you win");
+					wins ++;
+					$("#wins").text(wins);
+					playGame();
+				} else if (counter > targetNumber) {
+					alert("you lose");
+					losses ++;
+					$("#losses").text(losses);
+					playGame();
+				}
+		});
+
+	
+
+		$(".crystal-rainbow").click(function() {
+			// $(".rainbowScoreNum").html(rainbowSavedNum);
+				console.log(rainbowSavedNum);
+				counter += rainbowSavedNum;
+				$("#score").text(counter);
+				if (counter === targetNumber) {
+					alert("you win");
+					wins ++;
+					$("#wins").text(wins);
+					playGame();
+				} else if (counter > targetNumber) {
+					alert("you lose");
+					losses ++;
+					$("#losses").text(losses);
+					playGame();
+				}
+		});
+
+
+		$(".crystal-pink").click(function() {
+			// $(".pinkScoreNum").html(pinkSavedNum);
+				console.log(pinkSavedNum);
+				counter += pinkSavedNum;
+				$("#score").text(counter);
+				if (counter === targetNumber) {
+					alert("you win");
+					wins ++;
+					$("#wins").text(wins);
+					playGame();
+				} else if (counter > targetNumber) {
+					alert("you lose");
+					losses ++;
+					$("#losses").text(losses);
+					playGame();
+				}
+		});
+
+
+playGame();
+
+// $(".crystal").on("click", function() {
+// 	if (".crystal" == ".crystal-kinetic") {
+// 		crystalValue = arrayOfCrystals[i];
+// 		console.log(crystalValue);
+// 	}
+// });
+
+// $(".crystal-kinetic").on("click", function() {
+// 	counter += kineticCrystal.value;
+// })
+
+// 	console.log(counter);
+	
+
+// for (var i = 0; i < crystalSelector.length; i++) {
+
+// 	var imageCrystal = $("<img>");
+
+// 	imageCrystal.addClass("crystal-image");
+
+// 	imageCrystal.attr("src", "assets/images/blueCrystal.jpg");
+
+// 	imageCrystal.attr("data-crystalvalue", Math.floor(Math.random() * 12) +1);
+
+// 	$("#crystals").append(imageCrystal);
+// }
+
+// $(".crystal-image").on("click", function() {
+
+// 	var crystalValue = ($(this).attr("data-crystalvalue"));
+// 	crystalValue = parseInt(crystalValue);
+
+
+
+// $(".crystal-image").on("click", function() {
+
+	// counter += crystalValue;
+
+	// alert("New score: " + counter);
+	// $("#score").text(counter);
+
+	// if(counter === targetNumber) {
+	// 	alert("You win!");
+
+	// } else if(counter >= targetNumber) {
+	// 	alert("You lose!");
+	
+	// }
+
+
+
+</script>
+</body>
+</html>
